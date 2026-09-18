@@ -28,7 +28,7 @@
     overflow-x:hidden;
   }
   ::selection{background:var(--gold);color:var(--wine-900);}
-
+ 
   /* ---------- AMBIENT SPARKLES ---------- */
   #sparkles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
   .spark{
@@ -49,7 +49,7 @@
   @media (prefers-reduced-motion: reduce){
     .spark{animation:none;display:none;}
   }
-
+ 
   /* ---------- COVER ---------- */
   #cover{
     position:fixed;inset:0;
@@ -68,7 +68,7 @@
   .ring-wrap:active .ring-svg{transform:scale(.94);}
   .tap-hint{font-size:.82rem;letter-spacing:.08em;color:var(--gold-light);opacity:.75;}
   @media (prefers-reduced-motion: reduce){.ring-glow{animation:none;}.ring-svg{transition:none;}}
-
+ 
   /* ---------- NAV DOTS ---------- */
   #dotnav{
     position:fixed;right:22px;top:50%;transform:translateY(-50%);
@@ -80,7 +80,7 @@
   }
   #dotnav button.active{background:var(--gold);transform:scale(1.3);}
   @media (max-width:640px){#dotnav{display:none;}}
-
+ 
   /* ---------- SECTIONS ---------- */
   section{
     position:relative;z-index:2;
@@ -94,7 +94,7 @@
   .reveal.d1{transition-delay:.08s;}
   .reveal.d2{transition-delay:.2s;}
   .reveal.d3{transition-delay:.32s;}
-
+ 
   .flourish{width:70px;height:auto;margin:0 auto 22px;opacity:.85;}
   .eyebrow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--gold-light);margin:0 0 6px;}
   .names{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.7rem;line-height:1.15;margin:0 0 26px;color:var(--cream);}
@@ -104,7 +104,7 @@
   .scroll-cue{margin-top:46px;font-size:.75rem;letter-spacing:.1em;color:var(--gold-light);opacity:.7;}
   .scroll-cue svg{display:block;margin:8px auto 0;width:16px;animation:bob 1.8s ease-in-out infinite;}
   @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
-
+ 
   /* countdown */
   .section-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:var(--gold-light);margin-bottom:34px;}
   .countdown{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:20px;}
@@ -112,14 +112,14 @@
   .count-num{font-family:'Cormorant Garamond',serif;font-size:2.3rem;color:var(--gold);line-height:1;}
   .count-label{font-size:.68rem;letter-spacing:.08em;color:var(--gold-light);opacity:.75;margin-top:6px;}
   .count-sub{font-size:.9rem;color:var(--gold-light);opacity:.8;margin-top:6px;}
-
+ 
   /* details */
   .details{display:flex;flex-direction:column;gap:22px;margin:34px 0;}
   .detail{display:flex;align-items:flex-start;gap:14px;text-align:left;max-width:340px;margin:0 auto;}
   .detail svg{flex:none;width:22px;height:22px;margin-top:2px;color:var(--gold);}
   .detail-label{font-size:.72rem;letter-spacing:.06em;color:var(--gold-light);opacity:.75;margin-bottom:2px;}
   .detail-value{font-size:1.02rem;color:var(--cream);line-height:1.4;}
-
+ 
   .btn-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:30px;}
   .btn{
     font-family:'Jost',sans-serif;font-size:.88rem;letter-spacing:.03em;
@@ -133,7 +133,7 @@
   .btn:hover{background:var(--gold);color:var(--wine-900);transform:translateY(-2px);}
   .btn.solid{background:var(--gold);color:var(--wine-900);}
   .btn.solid:hover{background:var(--gold-light);}
-
+ 
   /* rsvp */
   .rsvp-msg{font-size:1rem;line-height:1.7;color:var(--gold-light);margin-bottom:30px;font-weight:300;}
   .rsvp-status{margin-top:20px;font-size:.9rem;color:var(--gold-light);min-height:1.4em;font-style:italic;font-family:'Cormorant Garamond',serif;}
@@ -151,21 +151,21 @@
   .rsvp-input::placeholder{color:var(--gold-light);opacity:.55;}
   .rsvp-input:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.07);}
   .btn:disabled, .btn.solid:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-
+ 
   footer{
     position:relative;z-index:2;
     text-align:center;padding:60px 22px 70px;
   }
   .closing{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;color:var(--gold-light);margin-bottom:8px;}
   .signature{font-size:.85rem;letter-spacing:.05em;color:var(--gold);opacity:.85;}
-
+ 
   @media (max-width:420px){.names{font-size:2.15rem;} .count-box{min-width:62px;padding:12px 6px;} .count-num{font-size:1.8rem;}}
 </style>
 </head>
 <body>
-
+ 
 <div id="sparkles"></div>
-
+ 
 <div id="cover">
   <p class="cover-eyebrow">Um novo capítulo está prestes a começar</p>
   <button class="ring-wrap" id="ringBtn" aria-label="Toca no anel para abrir o convite">
@@ -185,14 +185,14 @@
   </button>
   <p class="tap-hint">toca no anel</p>
 </div>
-
+ 
 <nav id="dotnav" aria-label="Navegação do convite">
   <button data-target="hero" class="active" aria-label="Início"></button>
   <button data-target="countdown" aria-label="Contagem"></button>
   <button data-target="details" aria-label="Detalhes"></button>
   <button data-target="rsvp" aria-label="Confirmação"></button>
 </nav>
-
+ 
 <main>
   <section id="hero">
     <div class="inner">
@@ -214,7 +214,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section id="countdown">
     <div class="inner">
       <p class="section-title reveal">Faltam apenas</p>
@@ -233,7 +233,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section id="details">
     <div class="inner">
       <p class="section-title reveal">Onde e quando</p>
@@ -259,7 +259,7 @@
       </div>
     </div>
   </section>
-
+ 
   <section id="rsvp">
     <div class="inner">
       <p class="section-title reveal">Confirma a tua presença</p>
@@ -278,19 +278,19 @@
     </div>
   </section>
 </main>
-
+ 
 <footer>
   <p class="closing">Com todo o carinho, contamos com a tua presença</p>
   <p class="signature">José &amp; Felícia</p>
 </footer>
-
+ 
 <script>
   // ring open
   document.getElementById('ringBtn').addEventListener('click', function(){
     document.getElementById('cover').classList.add('hidden');
     document.querySelectorAll('#hero .reveal').forEach(function(el){el.classList.add('in');});
   });
-
+ 
   // ambient sparkles
   (function(){
     var wrap = document.getElementById('sparkles');
@@ -306,14 +306,14 @@
       wrap.appendChild(s);
     }
   })();
-
+ 
   // scroll reveal for sections beyond hero
   var revealEls = document.querySelectorAll('#countdown .reveal, #details .reveal, #rsvp .reveal');
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
   }, {threshold:.35});
   revealEls.forEach(function(el){ io.observe(el); });
-
+ 
   // dot nav active state + click to scroll
   var dots = document.querySelectorAll('#dotnav button');
   var sections = ['hero','countdown','details','rsvp'].map(function(id){return document.getElementById(id);});
@@ -330,7 +330,7 @@
     });
   }, {threshold:.5});
   sections.forEach(function(s){ navIo.observe(s); });
-
+ 
   // countdown timer
   var target = new Date('2026-10-31T15:00:00+01:00').getTime();
   function updateCountdown(){
@@ -347,7 +347,7 @@
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
-
+ 
   // add to calendar (.ics download)
   document.getElementById('calBtn').addEventListener('click', function(){
     var ics = [
@@ -367,16 +367,16 @@
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
-
+ 
   // rsvp -> Google Sheets (via Apps Script Web App)
   // Cola aqui o URL da tua implementação (termina em /exec)
-  var GAS_URL = 'COLA_AQUI_O_TEU_URL_DO_APPS_SCRIPT';
-
+  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzekpBLnECdn-ZdByioy9FD7UIFOJRYkRIyQ5HCi5BBo8gMJKEC1fvXPEGmLJM7A0zE/exec';
+ 
   var status = document.getElementById('rsvpStatus');
   var nameInput = document.getElementById('rsvpName');
   var yesBtn = document.getElementById('rsvpYes');
   var noBtn = document.getElementById('rsvpNo');
-
+ 
   function enviarResposta(resposta, mensagemSucesso){
     if(GAS_URL.indexOf('COLA_AQUI') !== -1){
       status.textContent = 'Ainda não liguei a folha do Google Sheets — cola o URL do script no código.';
@@ -385,7 +385,7 @@
     yesBtn.disabled = true;
     noBtn.disabled = true;
     status.textContent = 'A enviar a tua resposta...';
-
+ 
     fetch(GAS_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -402,7 +402,7 @@
       noBtn.disabled = false;
     });
   }
-
+ 
   yesBtn.addEventListener('click', function(){
     enviarResposta('Sim', 'Que alegria! A tua presença foi anotada com carinho.');
   });
@@ -412,3 +412,4 @@
 </script>
 </body>
 </html>
+
