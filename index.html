@@ -137,6 +137,7 @@
   /* rsvp */
   .rsvp-msg{font-size:1rem;line-height:1.7;color:var(--gold-light);margin-bottom:30px;font-weight:300;}
   .rsvp-status{margin-top:20px;font-size:.9rem;color:var(--gold-light);min-height:1.4em;font-style:italic;font-family:'Cormorant Garamond',serif;}
+  .rsvp-hint{margin-top:26px;font-size:.85rem;color:var(--gold-light);opacity:.7;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.6;}
   .rsvp-input{
     width:100%;max-width:320px;
     padding:12px 14px;
@@ -267,14 +268,11 @@
         Para organizarmos tudo com carinho, pedimos que confirmes até
         uma semana antes do grande dia.
       </p>
-      <div class="reveal d1" style="margin-bottom:22px;">
-        <input type="text" id="rsvpName" placeholder="O teu nome" class="rsvp-input">
-      </div>
       <div class="btn-row reveal d2">
-        <button class="btn solid" id="rsvpYes">Estarei presente</button>
-        <button class="btn" id="rsvpNo">Não poderei ir</button>
+        <a class="btn solid" id="rsvpYes" href="https://docs.google.com/forms/d/e/1FAIpQLSf5IP1UrErQmiiqGlSPV-AMECzogUvziPof3Poj0XNBcLctKQ/viewform?usp=pp_url&entry.1580253917=Estarei+presente" target="_blank" rel="noopener">Estarei presente</a>
+        <a class="btn" id="rsvpNo" href="https://docs.google.com/forms/d/e/1FAIpQLSf5IP1UrErQmiiqGlSPV-AMECzogUvziPof3Poj0XNBcLctKQ/viewform?usp=pp_url&entry.1580253917=N%C3%A3o+poderei+ir" target="_blank" rel="noopener">Não poderei ir</a>
       </div>
-      <p class="rsvp-status reveal d3" id="rsvpStatus"></p>
+      <p class="rsvp-hint reveal d3">Vais ser levado a um formulário rápido — só precisas de escrever o teu nome e enviar.</p>
     </div>
   </section>
 </main>
@@ -356,7 +354,7 @@
       'SUMMARY:Noivado de José \\& Felícia',
       'DTSTART:20261031T150000',
       'DTEND:20261031T180000',
-      'LOCATION:Viana\\, lado oposto da Sonangalp\\, Bairro Santa Teresa',
+      'LOCATION:Viana\\, lado oposto do Sonangol\\, Bairro Santa Teresa',
       'DESCRIPTION:Contamos com a tua presença no nosso noivado.',
       'END:VEVENT','END:VCALENDAR'
     ].join('\r\n');
@@ -368,48 +366,9 @@
     URL.revokeObjectURL(url);
   });
  
-  // rsvp -> Google Sheets (via Apps Script Web App)
-  // Cola aqui o URL da tua implementação (termina em /exec)
-  var GAS_URL = 'https://script.google.com/macros/s/AKfycbzekpBLnECdn-ZdByioy9FD7UIFOJRYkRIyQ5HCi5BBo8gMJKEC1fvXPEGmLJM7A0zE/exec';
- 
-  var status = document.getElementById('rsvpStatus');
-  var nameInput = document.getElementById('rsvpName');
-  var yesBtn = document.getElementById('rsvpYes');
-  var noBtn = document.getElementById('rsvpNo');
- 
-  function enviarResposta(resposta, mensagemSucesso){
-    if(GAS_URL.indexOf('COLA_AQUI') !== -1){
-      status.textContent = 'Ainda não liguei a folha do Google Sheets — cola o URL do script no código.';
-      return;
-    }
-    yesBtn.disabled = true;
-    noBtn.disabled = true;
-    status.textContent = 'A enviar a tua resposta...';
- 
-    fetch(GAS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify({
-        nome: nameInput.value.trim(),
-        resposta: resposta
-      })
-    }).then(function(){
-      status.textContent = mensagemSucesso;
-    }).catch(function(){
-      status.textContent = 'Não foi possível enviar agora. Tenta novamente.';
-      yesBtn.disabled = false;
-      noBtn.disabled = false;
-    });
-  }
- 
-  yesBtn.addEventListener('click', function(){
-    enviarResposta('Sim', 'Que alegria! A tua presença foi anotada com carinho.');
-  });
-  noBtn.addEventListener('click', function(){
-    enviarResposta('Não', 'Vamos sentir a tua falta, mas obrigado por avisar.');
-  });
+  // rsvp: os botões "Estarei presente" / "Não poderei ir" são links diretos
+  // para o Google Forms, já pré-preenchidos com a resposta escolhida.
+  // O próprio Forms trata do envio e do armazenamento na folha — sem JS.
 </script>
 </body>
 </html>
-
