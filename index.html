@@ -153,6 +153,37 @@
   .rsvp-input:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.07);}
   .btn:disabled, .btn.solid:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 
+  #rsvpForm{transition:opacity .5s ease, transform .5s ease;}
+  #rsvpForm.fading{opacity:0;transform:translateY(-10px);pointer-events:none;}
+
+  #rsvpConfirm{
+    display:none;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  #rsvpConfirm.show{display:block;opacity:1;transform:translateY(0);}
+  .confirm-icon{width:60px;height:60px;margin:0 auto 22px;display:block;}
+  .confirm-icon circle{opacity:0;animation:confirmCircle .6s ease forwards .1s;}
+  .confirm-icon path{
+    stroke-dasharray:40;
+    stroke-dashoffset:40;
+    animation:confirmDraw .5s ease forwards .5s;
+  }
+  @keyframes confirmCircle{to{opacity:1;}}
+  @keyframes confirmDraw{to{stroke-dashoffset:0;}}
+  .confirm-title{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:1.7rem;color:var(--gold);margin:0 0 10px;
+  }
+  .confirm-text{
+    font-size:1rem;line-height:1.7;color:var(--gold-light);
+    max-width:340px;margin:0 auto;font-weight:300;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .confirm-icon circle, .confirm-icon path{animation:none;opacity:1;stroke-dashoffset:0;}
+  }
+
   footer{
     position:relative;z-index:2;
     text-align:center;padding:60px 22px 70px;
@@ -263,19 +294,30 @@
 
   <section id="rsvp">
     <div class="inner">
-      <p class="section-title reveal">Confirma a tua presença</p>
-      <p class="rsvp-msg reveal d1">
-        Para organizarmos tudo com carinho, pedimos que confirmes até
-        uma semana antes do grande dia.
-      </p>
-      <div class="reveal d1" style="margin-bottom:22px;">
-        <input type="text" id="rsvpName" placeholder="O teu nome" class="rsvp-input">
+      <div id="rsvpForm">
+        <p class="section-title reveal">Confirma a tua presença</p>
+        <p class="rsvp-msg reveal d1">
+          Para organizarmos tudo com carinho, pedimos que confirmes até
+          uma semana antes do grande dia.
+        </p>
+        <div class="reveal d1" style="margin-bottom:22px;">
+          <input type="text" id="rsvpName" placeholder="O teu nome" class="rsvp-input">
+        </div>
+        <div class="btn-row reveal d2">
+          <button class="btn solid" id="rsvpYes">Estarei presente</button>
+          <button class="btn" id="rsvpNo">Não poderei ir</button>
+        </div>
+        <p class="rsvp-status reveal d3" id="rsvpStatus"></p>
       </div>
-      <div class="btn-row reveal d2">
-        <button class="btn solid" id="rsvpYes">Estarei presente</button>
-        <button class="btn" id="rsvpNo">Não poderei ir</button>
+
+      <div id="rsvpConfirm">
+        <svg class="confirm-icon" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="27" fill="none" stroke="#C9A227" stroke-width="2"/>
+          <path id="confirmCheck" d="M17 31l9 9 17-19" fill="none" stroke="#C9A227" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="confirm-title" id="confirmTitle">Obrigado!</p>
+        <p class="confirm-text" id="confirmText"></p>
       </div>
-      <p class="rsvp-status reveal d3" id="rsvpStatus"></p>
     </div>
   </section>
 </main>
@@ -379,8 +421,22 @@
   var nameInput = document.getElementById('rsvpName');
   var yesBtn = document.getElementById('rsvpYes');
   var noBtn = document.getElementById('rsvpNo');
+  var rsvpFormEl = document.getElementById('rsvpForm');
+  var rsvpConfirmEl = document.getElementById('rsvpConfirm');
+  var confirmTitle = document.getElementById('confirmTitle');
+  var confirmText = document.getElementById('confirmText');
 
-  function enviarResposta(resposta, mensagemSucesso){
+  function mostrarConfirmacao(nome, titulo, texto){
+    rsvpFormEl.classList.add('fading');
+    setTimeout(function(){
+      rsvpFormEl.style.display = 'none';
+      confirmTitle.textContent = titulo;
+      confirmText.textContent = texto;
+      rsvpConfirmEl.classList.add('show');
+    }, 500);
+  }
+
+  function enviarResposta(resposta, titulo, texto){
     var nome = nameInput.value.trim();
     if(!nome){
       status.textContent = 'Escreve o teu nome antes de confirmares, por favor.';
@@ -401,8 +457,7 @@
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: params.toString()
     }).then(function(){
-      status.textContent = mensagemSucesso;
-      nameInput.disabled = true;
+      mostrarConfirmacao(nome, titulo, texto);
     }).catch(function(){
       status.textContent = 'Não foi possível enviar agora. Tenta novamente.';
       yesBtn.disabled = false;
@@ -411,10 +466,18 @@
   }
 
   yesBtn.addEventListener('click', function(){
-    enviarResposta('Estarei presente', 'Que alegria! A tua presença foi anotada com carinho.');
+    enviarResposta(
+      'Estarei presente',
+      'Obrigado, ' + nameInput.value.trim() + '!',
+      'A tua presença foi anotada com muito carinho. Mal podemos esperar para celebrar este dia contigo.'
+    );
   });
   noBtn.addEventListener('click', function(){
-    enviarResposta('Não poderei ir', 'Vamos sentir a tua falta, mas obrigado por avisar.');
+    enviarResposta(
+      'Não poderei ir',
+      'Obrigado por avisares, ' + nameInput.value.trim() + '.',
+      'Vamos sentir a tua falta, mas agradecemos imenso por nos teres avisado.'
+    );
   });
 </script>
 </body>
